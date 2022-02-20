@@ -1,0 +1,27 @@
+
+
+.layout {
+    margin: 0;
+    width: 100%;
+    display: grid;
+    grid-template-areas:
+    "header"
+    "body"
+    "main";
+} 
+
+main{
+    grid-area: main;
+}
+
+
+
+header{
+    grid-area: header;
+    
+
+}
+
+body {
+    grid-area: body;
+}

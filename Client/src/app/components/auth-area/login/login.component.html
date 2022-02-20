@@ -1,0 +1,22 @@
+<div class="loginBox">
+  <form class="form-inline"(submit)="login()" [formGroup]="formControl" >
+    <h1>Log In Please</h1>
+      <div class="inputBox">
+          <input  [formControl]="userNameControl" type="text" class="form-control"  name="password"  id="inputPassword2" placeholder="User Name" >
+          <span *ngIf="userNameControl.touched && userNameControl.errors?.required">This field is required !</span>
+          <span *ngIf="userNameControl.errors?.minlength">minimum 4 charaters </span>
+          <span *ngIf="userNameControl.errors?.maxlength">maximum 10 charaters </span>
+      </div>
+      <div class="inputBox">
+          <input [formControl]="passwordControl" type="password" class="form-control" name="address"  id="inputPassword2" placeholder="password" >
+          <span *ngIf="passwordControl.touched && passwordControl.errors?.required">This field is required !</span>
+          <span *ngIf="passwordControl.errors?.minlength">minimum 4 numbers </span>
+          <span *ngIf="passwordControl.errors?.maxlength">maximum 20 numbers </span>
+          <span *ngIf="passwordControl.errors?.min">password cannot incloud a negative number</span>
+      </div>
+      <div class="btnBox">
+        <button mat-raised-button color="accent" [disabled]="formControl.invalid">Login</button> 
+        <button routerLink="/register" mat-raised-button color="primary">Register</button>  
+      </div>
+    </form>
+  </div>

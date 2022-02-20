@@ -1,0 +1,17 @@
+<div class="data">
+    <h4>Product Detail</h4>
+
+
+    <button mat-raised-button (click)="openModal()">Add Product</button> |
+    <button mat-raised-button (click) ="editContact(data.id)">Edit</button>
+
+    <p>Poduct: {{data.name}}</p>
+    <p>Price: {{data.price}}</p>
+    <p>Stock: {{data.stock}}</p>
+
+    <div>
+       
+        <img src="../../../../assets/products/{{data.imageName}}">
+    </div> 
+</div>
+

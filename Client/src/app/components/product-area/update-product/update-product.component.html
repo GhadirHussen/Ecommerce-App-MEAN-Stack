@@ -1,0 +1,52 @@
+ 
+
+<div class="contact">
+    <div id="container">
+      <h2>Edit Product</h2>
+      <form  (ngSubmit)="update()" [formGroup]="productForm"id="contact_form">
+        <div class="name">
+          <label for="name"></label>
+          <input type="text" placeholder="Product Name" name="name" id="name_input" [formControl]="nameControl">
+          <span *ngIf="nameControl.touched && nameControl.errors?.required">This field is required !</span>
+          <span *ngIf="nameControl.errors?.minlength">minimum 2 charaters </span>
+          <span *ngIf="nameControl.errors?.maxlength">maximum 20 charaters </span>
+        </div>
+        <div class="email">
+          <label for="email"></label>
+          <input type="number" placeholder="Price" name="pric"  [formControl]="priceControl">
+          <span *ngIf="priceControl.touched && priceControl.errors?.required">This field is required !</span>
+          <span *ngIf="priceControl.errors?.min">Price cannot be negativ or 0</span>
+        </div> 
+ 
+        <div class="email">
+            <label for="email"></label>
+            <input type="number" placeholder="Stock" name="stock"  [formControl]="stockControl">
+            <span *ngIf="stockControl.touched && stockControl.errors?.required">This field is required !</span>
+            <span *ngIf="stockControl.errors?.min">Stock cannot be negative or 0</span>
+        </div>
+
+        <div class="subject">
+            <label for="subject"></label>
+            <select placeholder="subject line" name="categoryId" id="subject_input" [formControl]="categoryControl">
+              <option disabled hidden selected>-No Category-</option>
+              <option *ngFor="let category of categories" value="{{category._id}}">
+                  {{category.name}}
+              </option>
+            </select>
+            <span *ngIf="categoryControl.touched && categoryControl.errors?.required">This field is required !</span>
+          </div>
+
+        <div class="message">
+          <label for="message"></label>
+          <input type="file" [formControl]="imageControl" accept="image/*" (change)="handelChange($event)" (change)="saveImage($event)" />
+          <span *ngIf="!filePreview"><img src="../../../../assets/products/{{productImage}}" alt="{{productImage}}"></span>
+          <span *ngIf="filePreview"><img src="{{filePreview}}" alt="preview"></span>
+            <span *ngIf="imageControl.touched && imageControl.errors?.required">This field is required !</span>
+        </div>
+        <div class="submit">
+            <button  mat-raised-button color="primary" [disabled]="productForm.invalid">Save</button>
+            <button mat-raised-button color="primary" [mat-dialog-close]="true">Back</button>
+        </div>
+      </form>
+    </div>
+    </div> 

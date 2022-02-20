@@ -1,0 +1,15 @@
+<div class="list">
+   <div *ngIf='!products'>
+      <h1>loading...</h1>
+      <img src="../../../../assets//Capsule-Loading.svg" alt="loading">
+   </div>
+   <div *ngIf="AuthService.loggedIn()">
+      <div class="search2" >
+         <mat-form-field appearance="outline">
+            <input class="a" matInput (keyup)="searchProduct($event)" placeholder="Search...">
+           </mat-form-field>
+      </div>
+         <app-product-card  *ngFor="let p of products ; index as i" [i]='i' [product]="p"></app-product-card>
+   </div>
+</div>
+ 

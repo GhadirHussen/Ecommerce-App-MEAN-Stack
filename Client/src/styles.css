@@ -1,0 +1,19 @@
+/* 
+ html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    text-align: center;
+}
+
+html, body { height: 100%; }
+ */
+
+ html {
+    background-color: rgb(209, 207, 207);
+    padding: 30px;
+
+ }
+ body  {
+    border-radius: 20px;
+ }

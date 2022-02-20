@@ -1,0 +1,64 @@
+ .order {
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column-reverse;
+
+
+}
+.order button {
+    margin: 5px;
+}
+
+
+.expiration{
+    width: 80px;
+}
+
+form mat-form-field {
+    margin: 3px;
+}
+form mat-label{
+    font-size: 13px;
+}
+
+form span {
+    color: red;
+    font-family: 'Trebuchet MS';
+    font-size: 13px;
+}
+
+
+table {
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid #ddd;
+    text-align: center;
+    border: none;
+    font-weight: bold;
+}
+
+
+.myTable .td {
+    position: relative;
+    padding: 20px;
+}
+.myTable  td img {
+    position: absolute;
+    width: 40px;
+    top: 10px;
+    left: 0;
+}
+
+  
+    table  tr  th {
+    background-color:rgb(211, 210, 210)
+        
+  }
+
+  table tr:last-child{
+      font-weight: bold;
+      color: red;
+  }

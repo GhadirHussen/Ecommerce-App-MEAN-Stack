@@ -1,0 +1,38 @@
+.list {
+  height: 100%;
+  position: relative;
+}
+
+
+.list input{
+    position: absolute;
+    right: 110px;
+    top: 41%;
+}
+.list{
+  text-align: center;
+}
+.list div img {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    transform: translateX(-50%);
+}
+
+.search2 {
+  position: absolute;
+  width: 100%;
+  top: -50px;;
+}
+
+.search2 input {
+  width: 200px;
+  position: absolute;
+  left: calc(50% - 100px);;
+
+}
+
+.a::placeholder {
+  text-align: center;
+  color: red
+}

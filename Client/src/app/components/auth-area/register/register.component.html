@@ -1,0 +1,91 @@
+<div class="registerBox">
+
+  <mat-stepper linear>
+    <mat-step [stepControl]="userFormGroup">
+      <ng-template matStepLabel>Step 1</ng-template>
+      <form [formGroup]="userFormGroup">
+
+        <mat-form-field appearance="outline">
+          <input matInput  [formControl]="firstNameControl"  name="firstName" type="text"  class="form-control" id="inputPassword2" placeholder="First Name" >
+          <span *ngIf="firstNameControl.touched && firstNameControl.errors?.required">This field is required !</span>
+          <span *ngIf="firstNameControl.errors?.minlength">minimum 4 charaters </span>
+          <span *ngIf="firstNameControl.errors?.maxlength">maximum 10 charaters </span>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <input matInput [formControl]="lastNameControl" name="lastName"  type="text" class="form-control" id="inputPassword2" placeholder="Last Name" >
+          <span *ngIf="lastNameControl.touched && lastNameControl.errors?.required">This field is required !</span>
+          <span *ngIf="lastNameControl.errors?.minlength">minimum 4 charaters </span>
+          <span *ngIf="lastNameControl.errors?.maxlength">maximum 10 charaters </span>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <input matInput [formControl]="userNameControl"  type="text" class="form-control"  name="password"  id="inputPassword2" placeholder="User Name">
+          <span *ngIf="userNameControl.touched && userNameControl.errors?.required">This field is required !</span>
+          <span *ngIf="userNameControl.errors?.minlength">minimum 3 charaters </span>
+          <span *ngIf="userNameControl.errors?.maxlength">maximum 15 charaters </span>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <input matInput [formControl]="passwordControl"  type="password" class="form-control" name="address"  id="inputPassword2" placeholder="password">
+          <span *ngIf="passwordControl.touched && passwordControl.errors?.required">This field is required !</span>
+          <span *ngIf="passwordControl.errors?.minlength">minimum 4 numbers </span>
+          <span *ngIf="passwordControl.errors?.maxlength">maximum 20 numbers </span>
+          <span *ngIf="passwordControl.errors?.min">password cannot incloud a negative number</span>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <input matInput [formControl]="emailControl"  type="email" class="form-control" name="email"  id="inputPassword2" placeholder="email" >
+          <span *ngIf="emailControl.touched && emailControl.errors?.required">This field is required !</span>
+          <span *ngIf="emailControl.errors?.pattern">Email address is invalid</span>
+        </mat-form-field>
+
+      </form>
+      <button mat-raised-button color="accent"  [routerLink]="'/login'">Login</button>
+      <button mat-raised-button matStepperNext color="primary">Next</button>
+    </mat-step>
+    <mat-step [stepControl]="addressFormGroup">
+      <ng-template matStepLabel>Step 2</ng-template>
+      <form [formGroup]="addressFormGroup" class="address">
+        
+        <mat-form-field appearance="outline">
+          <select matNativeControl [formControl]="cityControl">
+            <option selected>Choose City</option>
+            <option  *ngFor="let city of cities.cities">{{city}}</option>
+          </select>
+          <span *ngIf="userNameControl.touched && userNameControl.errors?.required">This field is required !</span>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <input matInput [formControl]="streetControl" type="text" class="form-control" name="address"  id="inputPassword2" placeholder="street" >
+          <span *ngIf="streetControl.touched && streetControl.errors?.required">This field is required !</span>
+          <span *ngIf="streetControl.errors?.minlength">minimum 3 charaters </span>
+          <span *ngIf="streetControl.errors?.maxlength">maximum 10 charaters </span>
+        </mat-form-field>
+      </form>
+      <div>
+        <button mat-raised-button matStepperNext color="primary">Next</button>
+        <button mat-raised-button matStepperPrevious color="primary">Back</button>
+    </div>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Done</ng-template>
+      <button mat-raised-button matStepperPrevious color="primary">Back</button>
+      <button mat-raised-button color="accent" type="submit" (click)="register()">Register</button> 
+    </mat-step>
+  </mat-stepper>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+

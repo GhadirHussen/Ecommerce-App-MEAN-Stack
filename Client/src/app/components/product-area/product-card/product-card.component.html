@@ -1,0 +1,29 @@
+ <div class="product-card" *ngIf="product">
+    <div class="main-images">
+        <img class="card-img-top"  src="../../../../assets/products/{{product.imageName}}" alt="Card image cap">
+    </div>
+
+    <div>
+      <span class="product_name">{{product.name}}</span>
+      <hr>
+    </div>
+    <div class="qun-price"> 
+      <div *ngIf="!checkAdmin">
+        <span>Quantity</span>
+        <div class="amount">
+            <input class="form-control" (change)='amount($event)' #kg type="number"  value="1" min="0" step="1">
+        </div>
+      </div>
+      <div class="price">
+        <span class="price_num">{{product.price | currency}} | </span>
+        <span class="Stock">Stock: {{product.stock}} </span>
+      </div>
+
+    </div>
+    <div class="button">
+      <div class="button-layer"></div>
+      <button *ngIf="!checkAdmin" (click) ="addToCart(product.id)">Add To Cart</button>
+      <button *ngIf="checkAdmin" class="openDialog" mat-raised-button (click) ="open()">Details</button>
+    </div>
+  </div> 
+

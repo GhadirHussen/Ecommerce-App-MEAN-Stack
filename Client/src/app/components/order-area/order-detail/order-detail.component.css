@@ -1,0 +1,51 @@
+.thanksPage{
+    width: 100%;
+    text-align: center;
+    font-family:'Lucida Sans';
+    margin: auto;
+    font-weight: bolder;
+}
+
+.userDetail {
+    font-weight: bold;
+
+}
+
+.thanksPage * {
+    margin: 10px;
+}
+.thanksPage h3 {
+    font-family:'Lucida Sans';
+
+}
+
+.complete {
+    font-family:Cambria, Cochin;
+    font-weight: bold;
+    font-size: 1.5em;
+    text-align: center;
+    height: 100px;
+    margin: 20px auto;
+}
+
+
+.button {
+    margin: 20px auto;
+    text-align: center;
+}  
+
+
+
+.product table {
+    width:50%;
+    text-align: center;
+    font-weight: bold;
+    margin: auto;
+    border-bottom: 1px black solid;
+}
+
+
+.product table * {
+  padding: 20px;
+   
+}

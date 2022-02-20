@@ -1,0 +1,57 @@
+<div *ngIf="order">
+
+   
+    <div class="thanksPage" id='pdf'>
+        <div class="thank">
+            <h4>Thank you for your ordering from our store</h4>
+        </div>
+        <div>
+            <div class="product">
+                <h5>Order Details</h5>
+ 
+                <table> 
+         
+                    <tr>  
+                    <th>Product</th> 
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    </tr>
+                    <tbody *ngFor="let i of lastOrder.cart">
+                        <tr *ngFor="let a of i.cartItems">     
+                        <td>{{a.product.name}}</td>
+                        <td>{{a.product.price | currency: 'USD'}}</td>
+                        <td>{{a.quantity}}</td>  
+                        </tr>
+                    </tbody>
+                    
+                    <tr>
+                    <th colspan="3">Total Price: {{lastOrder.totalPrice | currency: 'USD'}}</th>
+                    </tr>
+        
+                </table>
+            </div> 
+        </div>
+
+
+        <div class="userDetail">
+        <h5>Costumer Details</h5>
+            <p>First Name: {{lastOrder.firstName}}</p>
+            <p>Last Name: {{lastOrder.lastName}}</p>
+            <p *ngFor="let u of lastOrder.user">
+                Address for shipping : City - {{u.city}}, street - {{u.street}}
+            </p>
+            <p>Cridt Card: *****{{lastOrder.cardNumber.substr(lastOrder.cardNumber.length - 4)}}</p>
+            <p>Shipping Date: {{lastOrder.shippingDate}}</p>
+        </div>
+
+    </div>
+
+    <div class="button">
+        <button mat-raised-button color="warn" (click)="OrderDonwload()" >Donwload You Order</button>
+    </div>
+    <div class="complete">
+        <h5>You still hungry for shopping ?</h5>
+        <button mat-raised-button color="warn" routerLink="/" >Click Here</button>
+    </div>
+
+</div>

@@ -1,0 +1,33 @@
+.cartBox >div {
+    margin-top: 20px;
+}
+
+.cartBox button:hover {
+    color: #5cc3f3;
+}
+
+.cartBox .col-sm-4 {
+    margin: auto;
+}
+
+.cartBox .cartHeader {
+    display: inline-block;
+}
+
+.emptyCart {
+    font-family:  'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    text-transform: capitalize;
+}
+.emptyCart img{
+    width: 25%;
+}
+
+.cartBox button {
+    margin: 4px;
+}
+
+.cartBox input {
+    text-align: center;
+    font-weight: bold;
+}
+

@@ -1,0 +1,49 @@
+
+ <div class="cartBox" *ngIf="cart">
+     <div>
+        <div class="cartHeader">
+
+            <h5>Total Price: {{cart.finalPrice | currency: "USD"}}</h5> 
+            <button mat-raised-button color="primary" (click)="clearCart(cart._id)">Clear Your Cart</button> 
+            <button mat-raised-button color="primary" (click)="closeCart()">Back To Shopping</button>
+            <button *ngIf="cart.cartItems.length > 0"
+                mat-raised-button color="primary" (click)="closeCart()" [routerLink]="'store/order'">Checkout
+            </button>
+        </div> 
+        <hr> 
+        <div class="box2"> 
+        
+            <div *ngFor='let i of cart.cartItems' class="productBox">
+                <div>
+                    <p>Product: {{i.product.name}}</p>
+                    <p>Price: {{i.totalPrice | currency: "USD"}}</p>
+                    <P>Quantity: {{i.quantity}}</P>
+
+                    <div class="col-sm-4">
+                        <input class="form-control"  (change)='amount($event)' #kg type="number"  [value]="i.quantity" min="0" step="1">
+                    </div>
+                    <p><img src="../../../../assets/products/{{i.product.imageName}}" alt="{{i.product.imageName}}"></p>
+                    <button mat-raised-button color="warn" (click) ="update(cart._id, i.product.id)">Update</button>
+                    <button mat-raised-button color="warn" (click)="removeItem(cart._id, i._id)">Remove</button>
+                    <hr> 
+                </div>
+            </div> 
+        </div>
+    </div>
+
+    <div *ngIf="cart.cartItems.length === 0">
+        <h2>Your Cart Is Empty</h2>
+    </div>
+ </div>
+
+ <div class="emptyCart" *ngIf="!cart">
+    <h2>You did not add any product to your cart !</h2>
+    <img src="../../../../assets/logo/cart.png" alt="">
+    <button type="button" class="btn btn-success" (click)="closeCart()">Shop Now</button>
+</div>    
+
+
+  
+
+
+

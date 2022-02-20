@@ -1,0 +1,31 @@
+
+  <nav class="navbar navbar-expand-lg" *ngIf="AuthService.loggedIn()" >
+
+    <div class="container-fluid" *ngIf="Router.url !== '/store/order' && Router.url !== '/store/order/orderDetails'">
+      <a routerLink="/store" class='link-primary'>All Products</a> 
+      <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0" *ngFor='let category of categories'>
+          <li class="nav-item">           
+            <a routerLink='/store/products/category/{{category.id}}' class="link-primary">{{category.name}}</a>
+          </li>
+        </ul>
+
+        <div id="boxButton" class="form-inline my-2 my-lg-0">
+            <div id='box'>
+            <button id="cart" *ngIf="!AuthService.checkAdmin()" (click)='opentCart()' class="btn btn-dark btn-lg" type="submit">
+              <i class="fa fa-shopping-cart" style="width:100%"></i>
+              <div class="totalItem"></div>
+            </button>
+              <div>
+            </div>
+            <button (click)='AuthService.logout()'  mat-raised-button color="primary">Logout</button>
+          </div> 
+        </div>
+      </div> 
+    </div>
+  </nav>
+
+
+ 
+ 
+
