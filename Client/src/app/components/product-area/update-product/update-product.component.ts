@@ -1,4 +1,4 @@
-import { Component, Input, OnInit ,Inject} from '@angular/core';
+import { Component, OnInit ,Inject} from '@angular/core';
 import ProductModel from 'src/app/models/product.Model';
 import { ProductService } from 'src/app/services/product.service';
 import { ActivatedRoute } from '@angular/router';
@@ -7,7 +7,8 @@ import { HttpClient } from '@angular/common/http';
 import { FormGroup, FormControl, Validators }  from '@angular/forms';
 import { MatDialog, MAT_DIALOG_DATA,MatDialogRef } from '@angular/material/dialog';
 import CategoryModel from 'src/app/models/categoryModel';
-
+import { environment } from '../../../../environments/environment';
+import { globals } from '../../../../../src/environments/globals';
 
 @Component({
   selector: 'app-update-product',
@@ -41,7 +42,7 @@ export class UpdateProductComponent implements OnInit {
 
     try{
       this.product.id = data.id;
-      this.http.get<ProductModel[]>('http://localhost:3030/api/products' + "/" +    this.product.id )
+      this.http.get<ProductModel[]>(`${environment.hostUrl}/${globals.productsUrl}/${this.product.id}`)
         .subscribe((res: any) => {
           this.nameControl.setValue(res.name);
           this.priceControl.setValue(res.price);

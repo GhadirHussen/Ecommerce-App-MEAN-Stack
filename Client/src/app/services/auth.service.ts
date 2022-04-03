@@ -3,14 +3,12 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import UserModel from '../models/user.Model';
 import store from '../redux/store';
-import { userRegister, userLogin, userLogOut, UserActionType, getUser, AuthState } from '../redux/Auth';
+import { userRegister, userLogin, userLogOut, UserActionType, getUser } from '../redux/Auth';
 import Swal from 'sweetalert2';
-import { MatDialog } from '@angular/material/dialog';
 import OrderModel from '../models/order.Model';
-import { OrderService } from './order.service';
 import { AlertService } from './alert.service';
-import { Observable, Subject } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
+import { globals } from 'src/environments/globals';
 
 
 
@@ -25,8 +23,7 @@ export class AuthService {
 
 
     public async register(user: UserModel) {
-        const url = 'http://localhost:3030/api/user/register';
-        const addedUser = await this.http.post<UserModel>(url, user).toPromise();
+        const addedUser = await this.http.post<UserModel>(`${environment.hostUrl}/${globals.registerUrl}`, user).toPromise();
         store.dispatch(userRegister(addedUser));
         Swal.fire({
             title: `Your registration has been successfully completed`,
@@ -41,9 +38,8 @@ export class AuthService {
 
 
     public async login(user: UserModel) {
-        const url = 'http://localhost:3030/api/user/login';
       
-        const loggedInUser = this.http.post<UserModel>(url, user)
+        const loggedInUser = this.http.post<UserModel>(`${environment.hostUrl}/${globals.loginUrl}`, user)
         .subscribe(
             (res) => {
 
@@ -71,8 +67,7 @@ export class AuthService {
     
     //get the current user
     async getLoginUser() {
-        const url = 'http://localhost:3030/api/user/user';
-        const user = await this.http.get<any>(url).toPromise();
+        const user = await this.http.get<any>(`${environment.hostUrl}/${globals.getCurrentUser}`).toPromise();
         store.dispatch(getUser(user));
         return user;
     }
@@ -105,15 +100,13 @@ export class AuthService {
     }
     
     async getUsers() {
-        const url = 'http://localhost:3030/api/user/';
-        const getUsers = await this.http.get<UserModel>(url).toPromise();
+        const getUsers = await this.http.get<UserModel>(`${environment.hostUrl}/${globals.userUrl}`).toPromise();
         return getUsers;
     }   
 
     public async getUserName() {
 
-        const url = 'http://localhost:3030/api/user/user';
-        const user = await this.http.get<UserModel>(url).toPromise();
+        const user = await this.http.get<UserModel>(`${environment.hostUrl}/${globals.getCurrentUser}`).toPromise();
         return !!user.isAdmin
     }
 
@@ -124,7 +117,7 @@ export class AuthService {
         const user = (await this.getLoginUser());
         
         const admin = user.user.isAdmin === true;
-        const order  = await this.http.get<OrderModel[]>(`http://localhost:3030/api/order/${user.user.id}`).toPromise();
+        const order  = await this.http.get<OrderModel[]>(`${environment.hostUrl}/${globals.orderUrl}/${user.user.id}`).toPromise();
 
         if(!order.length) {
             if(admin) {

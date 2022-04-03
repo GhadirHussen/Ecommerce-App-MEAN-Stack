@@ -1,8 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { ITS_JUST_ANGULAR } from '@angular/core/src/r3_symbols';
 import { MatDialog } from '@angular/material/dialog';
-import { Router, RouterPreloader } from '@angular/router';
+import { Router } from '@angular/router';
 import CartModel from 'src/app/models/cart.Model';
 import OrderModel from 'src/app/models/order.Model';
 import ProductModel from 'src/app/models/product.Model';
@@ -12,6 +11,8 @@ import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
 import { AlertService } from 'src/app/services/alert.service';
 import { OrderService } from 'src/app/services/order.service';
+import { environment } from '../../../../environments/environment';
+import { globals } from '../../../../../src/environments/globals';
 
 
 @Component({
@@ -50,7 +51,7 @@ export class GetCartComponent implements OnInit {
       ]
     };
     
-    await this.http.put(`http://localhost:3030/api/cart/${idOfCart}/${idOfProduct}`, data).toPromise()
+    await this.http.put(`${environment.hostUrl}/${globals.cartUrl}/${idOfCart}/${idOfProduct}`, data).toPromise()
     store.dispatch(updateProductFromCart(idOfCart, idOfProduct));
     this.alertService.NotyfCenter.success('Your product has been successfully updated');
     this.ngOnInit();

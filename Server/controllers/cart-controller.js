@@ -3,7 +3,7 @@ const CartModel = require('../models/CartModel');
 const ProductModel = require('../models/ProductModel');
 const UserModel = require('../models/UserModel');
 const userModel = require('../models/UserModel');
-const verifyToken = require('../verifyToken');
+const verifyToken = require('../helpers/verifyToken');
 const jwt = require('jsonwebtoken');
 const cartsLogic = require('../business logic/carts-logic');
 

@@ -2,7 +2,7 @@ const router = require('express').Router();
 const UserModel = require('../models/UserModel');
 const bl = require('../business logic/auth-logic');
 const jwt = require('jsonwebtoken');
-const verifyToken = require('../verifyToken');
+const verifyToken = require('../helpers/verifyToken');
 const bcrypt = require('bcrypt');
 
 
@@ -56,7 +56,7 @@ router.post("/login", async (request, response) => {
             return response.status(400).send({ message: "The password is invalid" });
         }  
         
-        const token = jwt.sign({user: user}, 'secuerty');
+        const token = jwt.sign({user: user}, process.env.SECRET);
         response.header('authorization', token).send({
             id: user.id, 
             userName: user.userName,
@@ -78,7 +78,7 @@ router.post("/login", async (request, response) => {
 // ///get the token ///
 router.get('/user', verifyToken, async(request, response) => {
   
-    jwt.verify(request.token, 'secuerty', (err, user) => {
+    jwt.verify(request.token, process.env.SECRET, (err, user) => {
         if (err) {
            return response.json(err);
         } else {

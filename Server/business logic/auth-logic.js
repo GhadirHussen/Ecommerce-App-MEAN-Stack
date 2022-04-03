@@ -1,10 +1,6 @@
 const UserModel = require('../models/UserModel');
 require('../data-access-layer/mongodb-dal');
 
-
-
-
-
 const getAllUsers = async () => {
     return UserModel.find().exec();
 }

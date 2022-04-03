@@ -89,11 +89,6 @@
       width: 45%;
   }
   
-  select {
-    background: url('http://web.missouri.edu/~blly4b/ISLT7360/FinalProject/FINAL/icon-ios7-arrow-down-32.png') no-repeat right;
-    -webkit-appearance: none;
-  }
-  
   select::-ms-expand {
     display: none;
   }

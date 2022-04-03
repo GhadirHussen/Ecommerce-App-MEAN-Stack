@@ -4,7 +4,7 @@ const bl = require('../business logic/products-categories-logic');
 const CategoryModel = require("../models/CategoryModel");
 const ProductModel = require("../models/ProductModel");
 const UserModel = require("../models/UserModel");
-const verifyToken = require("../verifyToken");
+const verifyToken = require("../helpers/verifyToken");
 const jwt = require('jsonwebtoken');
 const uuid = require('uuid');
 const path = require('path');
@@ -56,7 +56,7 @@ router.get("/products/search/:name", async (request, response) => {
 router.post("/products", verifyToken, async (request, response) => {
     try{
 
-        jwt.verify(request.token, 'secuerty', (err, authData) => {
+        jwt.verify(request.token, process.env.SECRET, (err, authData) => {
             if (authData.user.isAdmin !== true) {
                response.send('You are not admin')
             }
@@ -78,45 +78,11 @@ router.post("/products", verifyToken, async (request, response) => {
     }
 });
 
-//  router.put('/products/:id', verifyToken, async (request ,response) => {
-
-//     try {
-//         jwt.verify(request.token, 'secuerty', (err, authData) => {
-//             if (authData.user.isAdmin !== true) {
-//                response.send('You are not admin')
-//             }
-//         });
-//         const product = new ProductModel(request.body);
-//         // const product = new ProductModel({
-//         //     _id: request.params.id,
-//         //     name: request.body.name,
-//         //     price: request.body.peice,
-//         //     stock: request.body.stick,
-//         //     imageName: request.body.imageName,
-//         //     id: request.params.id,
-//         // });
-//         const id = request.params.id;
-//         product.id = id;
-
-//         const image = request.files && request.files.image ? request.files.image : null;
-//         if (!image) return response.status(400).send("Missing image.");
-//         const productToUpdate = await bl.updateProduct(product, image);
-    
-//         response.send(productToUpdate).status(204);
-//     }
-//     catch {
-//         response.status(500);
-//     } 
-//  }); 
-
-
-
-
 
 router.put('/products/:id', verifyToken, async (request ,response) => {
 
     try {
-        jwt.verify(request.token, 'secuerty', (err, authData) => {
+        jwt.verify(request.token, process.env.SECRET, (err, authData) => {
             if (authData.user.isAdmin !== true) {
                response.send('You are not admin')
             }
@@ -129,7 +95,6 @@ router.put('/products/:id', verifyToken, async (request ,response) => {
          if (request.files) {
             const file = request.files.image;
             product.imageName = file.name;
-            // file.mv('../../Client/src/assets/products/' + product.imageName);
             const absolutePath = path.join(__dirname, "..", "..", "Client", "src", "assets", "products", product.imageName);
             await file.mv(absolutePath);
         }

@@ -33,9 +33,9 @@ const ProductSchema = mongoose.Schema({
 
 
 ProductSchema.virtual("category", { 
-    foreignField: "_id", // Which foreign filed connects to tha relation.
-    localField: "categoryId", // Which local filed connects to that relation.
-    ref: 'CategoryModel', // Which model to create relation to?
+    foreignField: "_id",
+    localField: "categoryId",
+    ref: 'CategoryModel', 
     justOne: true
 });
 

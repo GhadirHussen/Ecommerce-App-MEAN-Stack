@@ -1,19 +1,18 @@
-import { Component, Input, OnInit} from '@angular/core';
+import { Component, Input} from '@angular/core';
 import ProductModel from 'src/app/models/product.Model';
-import {MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import {MatDialog} from '@angular/material/dialog';
 import { ProductDetailsComponent } from '../product-details/product-details.component';
-import { HttpClient, HttpErrorResponse, HttpHandler, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from 'src/app/services/product.service';
 import { UpdateProductComponent } from '../update-product/update-product.component';
 import { AuthService } from 'src/app/services/auth.service';
-import UserModel from 'src/app/models/user.Model';
 import CartModel from 'src/app/models/cart.Model';
 import { CartService } from 'src/app/services/cart.service';
 import { ErrorsService } from 'src/app/services/errors.service';
 import { AlertService } from 'src/app/services/alert.service';
-
-
+import { environment } from '../../../../environments/environment';
+import { globals } from '../../../../../src/environments/globals';
 
 
 @Component({
@@ -42,9 +41,6 @@ export class ProductCardComponent {
   public user: any;
   public checkAdmin: boolean = false;
   public item:any;
-
-  public url = 'http://localhost:3030/api/categories/';
-
   public errors: any;
 
 
@@ -76,7 +72,7 @@ export class ProductCardComponent {
 
   async editProduct(id: string) {
     this.isPopupOpened = true;
-    this.product = await this.http.get<ProductModel>('http://localhost:3030/api/products/' + id ).toPromise();
+    this.product = await this.http.get<ProductModel>(`${environment.hostUrl}/${globals.productsUrl}/${id}`).toPromise();
     const dialogRef = this.matDialog.open(UpdateProductComponent, {
       data: this.product
     });
@@ -87,8 +83,6 @@ export class ProductCardComponent {
   async addToCart(id: string) {
 
     const userId = (await this.authService.getLoginUser()).user._id;
-    // const userId = JSON.parse(localStorage.getItem('user')).id;
-
     try {
       const data = {
         user: userId,

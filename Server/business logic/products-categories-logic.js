@@ -40,9 +40,7 @@ const updateProduct = async (product) => {
     if (result.matchedCount === 0) {
         return null;
     } else {
-        // Check if data was changed
         if (result.modifiedCount === 0) { 
-            // Do nothing
         }
 
         return product;

@@ -6,28 +6,28 @@
       <form [formGroup]="userFormGroup">
 
         <mat-form-field appearance="outline">
-          <input matInput  [formControl]="firstNameControl"  name="firstName" type="text"  class="form-control" id="inputPassword2" placeholder="First Name" >
+          <input matInput  [formControl]="firstNameControl"  name="firstName" type="text"  class="form-control" placeholder="First Name" >
           <span *ngIf="firstNameControl.touched && firstNameControl.errors?.required">This field is required !</span>
           <span *ngIf="firstNameControl.errors?.minlength">minimum 4 charaters </span>
           <span *ngIf="firstNameControl.errors?.maxlength">maximum 10 charaters </span>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
-          <input matInput [formControl]="lastNameControl" name="lastName"  type="text" class="form-control" id="inputPassword2" placeholder="Last Name" >
+          <input matInput [formControl]="lastNameControl" name="lastName"  type="text" class="form-control" placeholder="Last Name" >
           <span *ngIf="lastNameControl.touched && lastNameControl.errors?.required">This field is required !</span>
           <span *ngIf="lastNameControl.errors?.minlength">minimum 4 charaters </span>
           <span *ngIf="lastNameControl.errors?.maxlength">maximum 10 charaters </span>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
-          <input matInput [formControl]="userNameControl"  type="text" class="form-control"  name="password"  id="inputPassword2" placeholder="User Name">
+          <input matInput [formControl]="userNameControl"  type="text" class="form-control"  name="password" placeholder="User Name">
           <span *ngIf="userNameControl.touched && userNameControl.errors?.required">This field is required !</span>
           <span *ngIf="userNameControl.errors?.minlength">minimum 3 charaters </span>
           <span *ngIf="userNameControl.errors?.maxlength">maximum 15 charaters </span>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
-          <input matInput [formControl]="passwordControl"  type="password" class="form-control" name="address"  id="inputPassword2" placeholder="password">
+          <input matInput [formControl]="passwordControl"  type="password" class="form-control" name="address" placeholder="password">
           <span *ngIf="passwordControl.touched && passwordControl.errors?.required">This field is required !</span>
           <span *ngIf="passwordControl.errors?.minlength">minimum 4 numbers </span>
           <span *ngIf="passwordControl.errors?.maxlength">maximum 20 numbers </span>
@@ -35,7 +35,7 @@
         </mat-form-field>
 
         <mat-form-field appearance="outline">
-          <input matInput [formControl]="emailControl"  type="email" class="form-control" name="email"  id="inputPassword2" placeholder="email" >
+          <input matInput [formControl]="emailControl"  type="email" class="form-control" name="email" placeholder="email" >
           <span *ngIf="emailControl.touched && emailControl.errors?.required">This field is required !</span>
           <span *ngIf="emailControl.errors?.pattern">Email address is invalid</span>
         </mat-form-field>
@@ -57,7 +57,7 @@
         </mat-form-field>
 
         <mat-form-field appearance="outline">
-          <input matInput [formControl]="streetControl" type="text" class="form-control" name="address"  id="inputPassword2" placeholder="street" >
+          <input matInput [formControl]="streetControl" type="text" class="form-control" name="address" placeholder="street" >
           <span *ngIf="streetControl.touched && streetControl.errors?.required">This field is required !</span>
           <span *ngIf="streetControl.errors?.minlength">minimum 3 charaters </span>
           <span *ngIf="streetControl.errors?.maxlength">maximum 10 charaters </span>
