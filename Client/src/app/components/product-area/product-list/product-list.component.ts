@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from 'src/app/services/product.service';
 import ProductModel from 'src/app/models/product.Model';
-import { HttpClient ,HttpErrorResponse,HttpHandler } from '@angular/common/http';
-import { style } from '@angular/animations';
-import { NgStyle } from '@angular/common';
-import UserModel from 'src/app/models/user.Model';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { OrderService } from 'src/app/services/order.service';
+import { CartService } from 'src/app/services/cart.service';
 
 
 @Component({
@@ -20,9 +18,12 @@ export class ProductListComponent implements OnInit {
   public products: ProductModel[];
   public user: string;
   public catId: string;
+  public totalProducts:number;
+  public totalOrders: number;
+  public cart: any;
 
-  constructor(private Headers: HttpHandler,private ProductsService: ProductService, private http: HttpClient,
-    private route: ActivatedRoute, public AuthService:AuthService
+  constructor(private ProductsService: ProductService, private CartService: CartService,
+    private route: ActivatedRoute, public AuthService:AuthService, private OrderService: OrderService
   ) { }
 
 
@@ -32,6 +33,14 @@ export class ProductListComponent implements OnInit {
 
     try{   
       this.products = await this.ProductsService.getAllProducts();
+      this.ProductsService.allProducts.next(this.products);
+      
+      this.ProductsService.searchp.subscribe(async (keyWord) => {
+        
+        (await this.ProductsService.searchProduct(keyWord)).subscribe( res => {
+          this.products = res;
+        }, err => err);
+      })
       
       this.route.params.subscribe(() => {
         this.catId = this.route.snapshot.paramMap.get('id');
@@ -47,24 +56,17 @@ export class ProductListComponent implements OnInit {
       console.log(err)
     } 
 
-  }
-
-  
-  public async searchProduct(event: Event) {
-    try{
-      const keyWord = (event.target as HTMLInputElement).value;
- 
-      if(!keyWord)
-      this.ngOnInit()
-      this.products  = await this.ProductsService.searchProduct(keyWord);
-    }
-    catch(err) {
-      console.log(err)
-    }
     
-  }
-}
+    this.totalProducts = (await this.ProductsService.getAllProducts()).length;
+    this.totalOrders = (await this.OrderService.getAllOrders()).length;
 
+    this.cart = await this.CartService.getCart();
+    if(this.cart) {
+      this.CartService.newCountItems.next(this.cart.cartItems.length);
+    }
+  }
+
+}
 
 
 

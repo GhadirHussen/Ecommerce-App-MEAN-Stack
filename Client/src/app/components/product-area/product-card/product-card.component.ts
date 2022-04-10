@@ -3,8 +3,6 @@ import ProductModel from 'src/app/models/product.Model';
 import {MatDialog} from '@angular/material/dialog';
 import { ProductDetailsComponent } from '../product-details/product-details.component';
 import { HttpClient } from '@angular/common/http';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ProductService } from 'src/app/services/product.service';
 import { UpdateProductComponent } from '../update-product/update-product.component';
 import { AuthService } from 'src/app/services/auth.service';
 import CartModel from 'src/app/models/cart.Model';
@@ -25,8 +23,8 @@ export class ProductCardComponent {
   @Input()
   public product: ProductModel;
 
-  @Input()
-  public products: ProductModel[];
+  // @Input()
+  // public products: ProductModel[];
  
   @Input()
   public i: number;
@@ -35,29 +33,27 @@ export class ProductCardComponent {
   public isPopupOpened = true;
 
   public cart: CartModel;
+
   public qun: number;
   public add: string;
   public quantity: number;
   public user: any;
   public checkAdmin: boolean = false;
-  public item:any;
-  public errors: any;
+  public count: any;
 
-
-  constructor(private matDialog:MatDialog, private http:HttpClient,private route: ActivatedRoute
-    ,private ProductsService: ProductService, private Router: Router,
+  constructor(private matDialog:MatDialog, private http:HttpClient,
     public authService: AuthService, public cartService: CartService, private ErrorsService: ErrorsService, private alerService: AlertService
   ){
  
   }
 
   async ngOnInit() {
-      try {
-        this.user = (await this.authService.getLoginUser()).user;
-        this.checkAdmin = this.user.isAdmin;
-      } catch(err) {
-        console.log(err);
-      }
+    try {
+      this.user = (await this.authService.getLoginUser()).user;
+      this.checkAdmin = this.user.isAdmin;
+    } catch(err) {
+      console.log(err);
+    }
   }
 
 
@@ -73,7 +69,7 @@ export class ProductCardComponent {
   async editProduct(id: string) {
     this.isPopupOpened = true;
     this.product = await this.http.get<ProductModel>(`${environment.hostUrl}/${globals.productsUrl}/${id}`).toPromise();
-    const dialogRef = this.matDialog.open(UpdateProductComponent, {
+    this.matDialog.open(UpdateProductComponent, {
       data: this.product
     });
   }
@@ -84,6 +80,7 @@ export class ProductCardComponent {
 
     const userId = (await this.authService.getLoginUser()).user._id;
     try {
+
       const data = {
         user: userId,
         cartItems: [{
@@ -91,8 +88,17 @@ export class ProductCardComponent {
           quantity: this.quantity,
         }],
       }
+
       this.cart = await this.cartService.createCart(data);
-      localStorage.setItem('MyCart', JSON.stringify(this.cart))
+
+      localStorage.setItem('MyCart', JSON.stringify(this.cart));
+
+      this.count = this.cart;
+
+      /* send the length cartItems in each click to the header cart icon */
+      this.cartService.countItems.next(this.count.Cart.cartItems.length +1);
+      
+
     } catch(err) {
       this.ErrorsService.handelErrors = err;
       this.alerService.Notyf.error(this.ErrorsService.handelErrors.error.message);
@@ -100,7 +106,7 @@ export class ProductCardComponent {
     
   } 
 
-
+ 
 
   amount(event: any) {
 

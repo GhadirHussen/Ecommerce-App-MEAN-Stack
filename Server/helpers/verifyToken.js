@@ -1,3 +1,4 @@
+
 module.exports = function(req, res, next) {
    
     const bearerHeader = req.headers['authorization'];
@@ -11,8 +12,4 @@ module.exports = function(req, res, next) {
     }
 
 }
-
-
-
-
 

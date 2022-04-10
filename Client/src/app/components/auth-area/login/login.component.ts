@@ -4,11 +4,11 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import UserModel from 'src/app/models/user.Model';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
-import { MatDialog } from '@angular/material/dialog';
+import store from '../../../redux/store';
+import { userLogin } from '../../../redux/Auth';
 import OrderModel from 'src/app/models/order.Model';
 import { OrderService } from 'src/app/services/order.service';
 import { AlertService } from 'src/app/services/alert.service';
-import Swal from "sweetalert2";
 
 
 @Component({
@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
   public userNameControl: FormControl;
   public passwordControl: FormControl;
   public order: OrderModel[];
-  public errors: any;
+  public servierError: string = '';
 
   constructor(private http: HttpClient, private router: Router, public authService: AuthService, private orderService: OrderService , private alertService: AlertService)
   { 
@@ -51,7 +51,12 @@ export class LoginComponent implements OnInit {
   public async login() {
     this.user.userName = this.userNameControl.value;
     this.user.password = this.passwordControl.value;
-    this.authService.login(this.user);
+    (await this.authService.login(this.user)).subscribe(res => {
+      localStorage.setItem("user", JSON.stringify(res));
+      this.authService.getOrderLogin()
+      this.router.navigate(['/store']);
+      store.dispatch(userLogin(this.user));
+    }, err => this.servierError = err.error.message);
   }
 
   

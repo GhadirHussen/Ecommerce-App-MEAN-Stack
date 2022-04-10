@@ -114,7 +114,6 @@ export class OrderComponent implements OnInit {
     this.orders = await this.orderService.getAllOrders();
 
     this.orderSecondTime();
-    console.log(this.year)
   }
 
 

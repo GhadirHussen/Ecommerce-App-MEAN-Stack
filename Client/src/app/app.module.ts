@@ -7,7 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { LayoutComponent } from './components/layout-area/layout/layout.component';
 import { HttpClientModule, HTTP_INTERCEPTORS} from "@angular/common/http";
 import { MatDialogModule } from '@angular/material/dialog';
-import {MatFormFieldModule ,MatFormField } from '@angular/material/form-field';
+import {MatFormFieldModule } from '@angular/material/form-field';
 import {MatInputModule } from '@angular/material/input';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MatButtonModule } from "@angular/material/button";
@@ -17,7 +17,6 @@ import { ProductCardComponent } from './components/product-area/product-card/pro
 import { ProductDetailsComponent } from './components/product-area/product-details/product-details.component';
 import { AddNewProductComponent } from './components/product-area/add-new-product/add-new-product.component';
 import { UpdateProductComponent } from './components/product-area/update-product/update-product.component';
-import { MainComponent } from './components/layout-area/main/main.component';
 import { RegisterComponent } from './components/auth-area/register/register.component';
 import { LoginComponent } from './components/auth-area/login/login.component';
 import { AuthGuard } from './services/auth.guard';
@@ -29,7 +28,7 @@ import { OrderComponent } from './components/order-area/order/order.component';
 import { OrderDetailComponent } from './components/order-area/order-detail/order-detail.component';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatStepperModule} from '@angular/material/stepper';
-import { ImageHeaderComponent } from './components/layout-area/image-header/body.component';
+import { ImageHeaderComponent } from './components/layout-area/body/body.component';
 
 
 @NgModule({
@@ -43,7 +42,6 @@ import { ImageHeaderComponent } from './components/layout-area/image-header/body
         LoginComponent,
         LayoutComponent,
         HeaderComponent,
-        MainComponent,
         GetCartComponent,
         OrderComponent,
         OrderDetailComponent,

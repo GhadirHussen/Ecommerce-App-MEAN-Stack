@@ -5,9 +5,12 @@ import { CategoriesDownloadedAction } from '../redux/Categories';
 import CategoryModel from '../models/categoryModel';
 import ProductModel from '../models/product.Model';
 import store from '../redux/store';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { globals } from 'src/environments/globals';
+import "rxjs/add/operator/catch";
+import "rxjs/add/observable/throw";
+import "rxjs/add/observable/throw"
 
 
 @Injectable({
@@ -17,6 +20,9 @@ export class ProductService {
 
 
   private _refresh$ = new Subject<any>();
+  public searchp = new BehaviorSubject<any>('')
+  public allProducts = new BehaviorSubject<any>([]);
+
   constructor(private http: HttpClient) { }
 
   get refresh$() {
@@ -42,10 +48,14 @@ export class ProductService {
 
 
   public async searchProduct(keyWord: string) {
-    const product  = await this.http.get<ProductModel[]>
-    (`${environment.hostUrl}/${globals.searchPorduct}/${keyWord}`).toPromise();
-    return product;
+
+    return this.http.get<ProductModel[]>
+    (`${environment.hostUrl}/${globals.searchPorduct}/${keyWord}`)
+    .catch((err: any) => {
+      return Observable.throw(err)
+    });
   }
+
 
   public async addNewProduct(product: ProductModel) {
     const myFormData = ProductModel.convertToFormData(product);

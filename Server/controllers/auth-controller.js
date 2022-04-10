@@ -4,7 +4,7 @@ const bl = require('../business logic/auth-logic');
 const jwt = require('jsonwebtoken');
 const verifyToken = require('../helpers/verifyToken');
 const bcrypt = require('bcrypt');
-
+const getToken = require('../helpers/getToken');
 
 
 router.post("/register", async (request, response) => {
@@ -25,7 +25,9 @@ router.post("/register", async (request, response) => {
         const errors = user.validateSync();
         if(errors) return response.send(errors.message);
         const checkUserName = await UserModel.findOne({userName: user.userName});
-        if(checkUserName) return response.status(400).send('User Name already exists');
+        if(checkUserName) return response.status(400).json({message: "User Name already exists !"})
+         
+        // if(checkUserName) return response.status(400).send('User Name already exists');
 
         const createUser = await bl.register(user)
 
@@ -53,12 +55,12 @@ router.post("/login", async (request, response) => {
             return response.status(400).send({ message: "The username does not exist" });
         }
         if(!comparePassword) {
-            return response.status(400).send({ message: "The password is invalid" });
+            return response.status(400).send({ message: "The password / user name is invalid !" });
         }  
         
-        const token = jwt.sign({user: user}, process.env.SECRET);
-        response.header('authorization', token).send({
-            id: user.id, 
+        const token = getToken({user: user});
+
+        response.status(200).json({
             userName: user.userName,
             token: token
         });
