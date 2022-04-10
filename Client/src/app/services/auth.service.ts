@@ -33,17 +33,7 @@ export class AuthService {
         const addedUser = await this.http.post<UserModel>(`${environment.hostUrl}/${globals.registerUrl}`, user)
         .catch((err: any) => {
             return Observable.throw(err)
-        })
-        // store.dispatch(userRegister(addedUser));
-
-        // Swal.fire({
-        //     title: `Your registration has been successfully completed`,
-        //     text: 'YOU ARE WELLCOM',
-        //     timer: 3000,
-        //     icon:'success',
-        //     showConfirmButton: false
-        // }); 
-        // this.router.navigate(['/login']);
+        });
         return addedUser;
     }
 
