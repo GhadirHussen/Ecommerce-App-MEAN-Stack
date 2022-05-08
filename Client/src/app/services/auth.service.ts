@@ -25,8 +25,12 @@ export class AuthService {
 
     constructor(
         private http: HttpClient, private router: Router,
+<<<<<<< HEAD
         private ErrorService: ErrorsService, private AlertService: AlertService,
         private Route: ActivatedRoute
+=======
+        private ErrorService: ErrorsService, private AlertService: AlertService
+>>>>>>> 9621f5da2f6eeb86785c37dbb37098649bf79945
     ) { }
 
 
@@ -34,7 +38,11 @@ export class AuthService {
         const addedUser = await this.http.post<UserModel>(`${environment.hostUrl}/${globals.registerUrl}`, user)
         .catch((err: any) => {
             return Observable.throw(err)
+<<<<<<< HEAD
         })
+=======
+        });
+>>>>>>> 9621f5da2f6eeb86785c37dbb37098649bf79945
         return addedUser;
     }
 

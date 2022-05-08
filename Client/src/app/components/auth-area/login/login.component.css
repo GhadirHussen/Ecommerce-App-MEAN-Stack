@@ -1,10 +1,15 @@
 .loginBox {
     box-sizing: border-box;
+<<<<<<< HEAD
     position: absolute;
     width: 100%;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+=======
+    position: relative;
+    top: 50%;
+>>>>>>> 9621f5da2f6eeb86785c37dbb37098649bf79945
 }
 
 .loginBox h1 {
@@ -47,6 +52,7 @@
     font-size: 16px;
     left: 50%;
     transform: translate(-50%, 10%);
+<<<<<<< HEAD
 }
 
 .loginBox form {
@@ -54,6 +60,15 @@
     padding: 50px;
 }
 
+=======
+}
+
+.loginBox form {
+    position: relative;
+    padding: 50px;
+}
+
+>>>>>>> 9621f5da2f6eeb86785c37dbb37098649bf79945
 .loginBox form button{
     margin: auto;
     text-align: center;
@@ -72,9 +87,12 @@
     transform: translate(-50%, -50%);
     width: 80%;
     padding: 10px;
+<<<<<<< HEAD
 }
 
 .loginBox .resetPassword {
     margin: auto;
     padding: 0;
+=======
+>>>>>>> 9621f5da2f6eeb86785c37dbb37098649bf79945
 }

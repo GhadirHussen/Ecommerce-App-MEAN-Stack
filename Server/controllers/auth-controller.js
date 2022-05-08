@@ -5,9 +5,13 @@ const jwt = require('jsonwebtoken');
 const verifyToken = require('../helpers/verifyToken');
 const bcrypt = require('bcrypt');
 const getToken = require('../helpers/getToken');
+<<<<<<< HEAD
 const sendEmail = require('../helpers/sendMail');
 const uuid = require('uuid');
 const TokenModel = require('../models/RestPasswordModel');
+=======
+
+>>>>>>> 9621f5da2f6eeb86785c37dbb37098649bf79945
 
 router.post("/register", async (request, response) => {
     try{
@@ -21,6 +25,11 @@ router.post("/register", async (request, response) => {
         const checkUserName = await UserModel.findOne({userName: user.userName});
         if(checkUserName) return response.status(400).json({message: "User Name already exists !"})
          
+<<<<<<< HEAD
+=======
+        // if(checkUserName) return response.status(400).send('User Name already exists');
+
+>>>>>>> 9621f5da2f6eeb86785c37dbb37098649bf79945
         const createUser = await bl.register(user)
 
         response.status(201).json(createUser);
@@ -48,6 +57,14 @@ router.post("/login", async (request, response) => {
         }  
         
         const token = getToken({user: user});
+<<<<<<< HEAD
+=======
+
+        response.status(200).json({
+            userName: user.userName,
+            token: token
+        });
+>>>>>>> 9621f5da2f6eeb86785c37dbb37098649bf79945
 
         response.status(200).json({
             userName: user.userName,

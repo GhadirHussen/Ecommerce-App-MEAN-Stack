@@ -29,8 +29,11 @@ import { OrderDetailComponent } from './components/order-area/order-detail/order
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatStepperModule} from '@angular/material/stepper';
 import { ImageHeaderComponent } from './components/layout-area/body/body.component';
+<<<<<<< HEAD
 import { ResetPasswordComponent } from './components/auth-area/email-reset-password/email-reset-password.component';
 import { ResetpassComponent } from './components/auth-area/resetpass/resetpass.component';
+=======
+>>>>>>> 9621f5da2f6eeb86785c37dbb37098649bf79945
 
 
 @NgModule({

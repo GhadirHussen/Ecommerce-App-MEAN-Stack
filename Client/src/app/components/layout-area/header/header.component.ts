@@ -27,8 +27,11 @@ export class HeaderComponent implements OnInit{
   public myInterval: any;
   public subscription: Subscription;
 
+<<<<<<< HEAD
   public total: number;
 
+=======
+>>>>>>> 9621f5da2f6eeb86785c37dbb37098649bf79945
   
 
   constructor(

@@ -13,7 +13,10 @@
     "dotenv": "^16.0.0",
     "express": "^4.17.2",
     "jsonwebtoken": "^8.5.1",
+<<<<<<< HEAD
     "nodemailer": "^6.7.3",
+=======
+>>>>>>> 9621f5da2f6eeb86785c37dbb37098649bf79945
     "uuid": "^8.3.2"
   }
 }
