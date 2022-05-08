@@ -6,8 +6,8 @@
     display: flex;
     flex-direction: column-reverse;
 
-
 }
+
 .order button {
     margin: 5px;
 }
@@ -34,7 +34,7 @@ form span {
 table {
     border-spacing: 0;
     width: 100%;
-    border: 1px solid #ddd;
+    border: 1px solid #ddd;;
     text-align: center;
     border: none;
     font-weight: bold;
@@ -53,12 +53,11 @@ table {
 }
 
   
-    table  tr  th {
-    background-color:rgb(211, 210, 210)
-        
-  }
+table  tr  th {
+    background: rgb(231, 230, 230);
+}
 
-  table tr:last-child{
-      font-weight: bold;
-      color: red;
-  }
+table tr:last-child{
+    font-weight: bold;
+    color: red;
+}

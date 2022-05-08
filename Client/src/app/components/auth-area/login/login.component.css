@@ -1,3 +1,12 @@
+.loginBox {
+    box-sizing: border-box;
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
 .loginBox h1 {
     font-family: Impact;
 }
@@ -8,43 +17,64 @@
 .loginBox form {
     margin: auto;
     text-align: center;
-    position:absolute;
-    top: 100px;
-    right: 100px;
-    height: 200px
 }
 .loginBox form  {
     width: 50%;
     display: block;
-    margin: auto;
+    padding: 20px;
+    border-radius: 25px;
+    background: #fff;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+
 }
 
 .inputBox *{
     margin: auto;
     display: block;
 }
-form .btnBox *{
+.loginBox form .btnBox *{
     margin: 10px;
 }
 
-form span {
+.loginBox .inputBox{
+    position: relative;
+}
+
+.loginBox form span {
+    position: absolute;
     color: red;
     font-family: 'Trebuchet MS';
     font-size: 16px;
+    left: 50%;
+    transform: translate(-50%, 10%);
 }
 
-form button {
+.loginBox form {
+    position: relative;
+    padding: 50px;
+}
+
+.loginBox form button{
     margin: auto;
     text-align: center;
     height: 50px;
     width: 50%;
-    background-image: linear-gradient(135deg,#9708CC, #43CBFF,#9708CC, #43CBFF );
-    border-radius: 25px;
     font-size: 18px;
     font-weight: 600;
     letter-spacing: 1px;
     color: #fff;
-    border: none;
-    cursor: pointer;
-  }
-  
+    border: 0;
+}
+
+.loginBox .alert {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    padding: 10px;
+}
+
+.loginBox .resetPassword {
+    margin: auto;
+    padding: 0;
+}

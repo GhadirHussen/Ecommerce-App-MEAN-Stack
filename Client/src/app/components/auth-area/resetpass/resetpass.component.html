@@ -1,0 +1,31 @@
+<div class="passwordBox" *ngIf="emptyArray === false">
+
+    <form [formGroup]="form" (submit)="ResetPassword()">
+        <div> 
+            <input [formControl]="passwordControl" type="password" class="form-control" name="password"  placeholder="Password" >
+            <span *ngIf="passwordControl.touched && passwordControl.errors?.required">This field is required !</span>
+            <span *ngIf="passwordControl.errors?.minlength">minimum 4 numbers </span>
+            <span *ngIf="passwordControl.errors?.maxlength">maximum 20 numbers </span>
+        </div>
+
+        <div> 
+            <input [formControl]="confirmPasswordControl" type="password" class="form-control" name="confirmPassword"  placeholder="Confirm  Password" >
+            <span *ngIf="confirmPasswordControl.touched && passwordControl.errors?.required">This field is required !</span>
+            <span *ngIf="confirmPasswordControl.errors?.minlength">minimum 4 numbers </span>
+            <span *ngIf="confirmPasswordControl.errors?.maxlength">maximum 20 numbers </span>
+        </div>
+        <button mat-raised-button type="submit" color="primary">Reset</button>
+        <button mat-raised-button routerLink="/login" color="primary">Login page</button> 
+    </form>
+
+    <div class="alert alert-info alertPass" *ngIf="msg">
+        <strong>{{msg}}</strong>
+    </div>
+
+</div>
+    
+
+<div class="pageNotFound" *ngIf="emptyArray === true">
+    <h1>Page Not Found</h1>
+</div>
+

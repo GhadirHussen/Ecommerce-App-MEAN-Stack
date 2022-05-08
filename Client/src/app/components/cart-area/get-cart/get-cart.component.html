@@ -1,5 +1,4 @@
-
- <div class="cartBox" *ngIf="cart">
+ <div class="cartBox" *ngIf="cart" >
      <div>
         <div class="cartHeader">
 
@@ -14,7 +13,7 @@
         <div class="box2"> 
         
             <div *ngFor='let i of cart.cartItems' class="productBox">
-                <div>
+                <div *ngIf="i.product">
                     <p>Product: {{i.product.name}}</p>
                     <p>Price: {{i.totalPrice | currency: "USD"}}</p>
                     <P>Quantity: {{i.quantity}}</P>
@@ -33,13 +32,14 @@
 
     <div *ngIf="cart.cartItems.length === 0">
         <h2>Your Cart Is Empty</h2>
+        <img src="../../../../assets/logo/cart.png">
     </div>
  </div>
 
  <div class="emptyCart" *ngIf="!cart">
     <h2>You did not add any product to your cart !</h2>
-    <img src="../../../../assets/logo/cart.png" alt="">
-    <button type="button" class="btn btn-success" (click)="closeCart()">Shop Now</button>
+    <img src="../../../../assets/logo/cart.png">
+    <button type="button" mat-raised-button color="warn" (click)="closeCart()">Shop Now</button>
 </div>    
 
 

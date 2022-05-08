@@ -1,5 +1,8 @@
 <div class="registerBox">
 
+  <div class="alert alert-info" *ngIf="servierError">
+      <strong>{{servierError}}</strong>
+  </div>
   <mat-stepper linear>
     <mat-step [stepControl]="userFormGroup">
       <ng-template matStepLabel>Step 1</ng-template>

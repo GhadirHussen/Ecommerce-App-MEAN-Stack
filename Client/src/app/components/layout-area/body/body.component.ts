@@ -7,6 +7,8 @@ import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import UserModel from 'src/app/models/user.Model';
 import { AuthService } from 'src/app/services/auth.service';
+import { OrderService } from 'src/app/services/order.service';
+import { ProductService } from 'src/app/services/product.service';
 import { LoginComponent } from '../../auth-area/login/login.component';
 
 @Component({
@@ -18,18 +20,12 @@ import { LoginComponent } from '../../auth-area/login/login.component';
 
 export class ImageHeaderComponent implements OnInit {
 
-  private sub: Subscription;
-  public userName: any;
-  constructor(public authService: AuthService, public Router: Router, private http: HttpClient) {
+  public userName: string = '';
 
-  }
+  constructor(public AuthService: AuthService, public Router: Router) {}
 
   async ngOnInit(){
+    this.userName = (await this.AuthService.getLoginUser()).user.userName;
 
   }      
-
-
-  
-
-
 }

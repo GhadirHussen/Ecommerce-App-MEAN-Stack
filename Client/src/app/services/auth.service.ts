@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import UserModel from '../models/user.Model';
 import store from '../redux/store';
 import { userRegister, userLogin, userLogOut, UserActionType, getUser } from '../redux/Auth';
@@ -9,7 +9,11 @@ import OrderModel from '../models/order.Model';
 import { AlertService } from './alert.service';
 import { environment } from '../../environments/environment';
 import { globals } from 'src/environments/globals';
-
+import { ErrorsService } from './errors.service';
+import { Observable } from 'rxjs';
+import "rxjs/add/operator/catch";
+import "rxjs/add/observable/throw";
+import "rxjs/add/observable/throw";
 
 
 @Injectable({
@@ -19,44 +23,37 @@ export class AuthService {
 
 
 
-    constructor(private http: HttpClient, private router: Router , private alertService: AlertService) { }
+    constructor(
+        private http: HttpClient, private router: Router,
+        private ErrorService: ErrorsService, private AlertService: AlertService,
+        private Route: ActivatedRoute
+    ) { }
 
 
     public async register(user: UserModel) {
-        const addedUser = await this.http.post<UserModel>(`${environment.hostUrl}/${globals.registerUrl}`, user).toPromise();
-        store.dispatch(userRegister(addedUser));
-        Swal.fire({
-            title: `Your registration has been successfully completed`,
-            text: 'YOU ARE WELLCOM',
-            timer: 3000,
-            icon:'success',
-            showConfirmButton: false
-        }); 
-        this.router.navigate(['/login']);
+        const addedUser = await this.http.post<UserModel>(`${environment.hostUrl}/${globals.registerUrl}`, user)
+        .catch((err: any) => {
+            return Observable.throw(err)
+        })
         return addedUser;
     }
 
-
+    
     public async login(user: UserModel) {
       
         const loggedInUser = this.http.post<UserModel>(`${environment.hostUrl}/${globals.loginUrl}`, user)
-        .subscribe(
-            (res) => {
-
-              localStorage.setItem("user", JSON.stringify(res));
-              
-              this.getOrderLogin()
-              this.router.navigate(['/store']);
-              store.dispatch(userLogin(user));
-            }
-        )
+        .catch((err: any) => {
+            return Observable.throw(err)
+          });
         return loggedInUser;
     }
+
 
     loggedIn() {
         return !!JSON.parse(localStorage.getItem("user"));
     }
 
+    
     checkAdmin() {
         if(JSON.parse(localStorage.getItem("user")).userName === 'admin') {
             return true
@@ -65,6 +62,7 @@ export class AuthService {
         }
     }
     
+
     //get the current user
     async getLoginUser() {
         const user = await this.http.get<any>(`${environment.hostUrl}/${globals.getCurrentUser}`).toPromise();
@@ -113,7 +111,6 @@ export class AuthService {
 
     ////check if the current user have order or not
     public async getOrderLogin() {
-        // const user = JSON.parse(localStorage.getItem('user'));
         const user = (await this.getLoginUser());
         
         const admin = user.user.isAdmin === true;
@@ -165,6 +162,26 @@ export class AuthService {
             }
           })
         }
+    }
+
+
+    public async sendResetEmail(email: string) {
+        const response = this.http.post(`${environment.hostUrl}/${globals.resetMail}`, email)
+        .catch((err: any) => {
+            return Observable.throw(err)
+        })
+        return response;
+    }
+
+
+  
+    public async ResetPassword(userId:string, token: string, password: any) {
+
+        const response = this.http.post(`${environment.hostUrl}/${globals.resetPassword}/${userId}/${token}`, password)
+        .catch((err: any) => {
+            return Observable.throw(err)
+        })
+        return response;
     }
 }
 

@@ -1,10 +1,6 @@
 const router = require('express').Router();
 const CartModel = require('../models/CartModel');
-const ProductModel = require('../models/ProductModel');
-const UserModel = require('../models/UserModel');
-const userModel = require('../models/UserModel');
 const verifyToken = require('../helpers/verifyToken');
-const jwt = require('jsonwebtoken');
 const cartsLogic = require('../business logic/carts-logic');
 
 
@@ -55,7 +51,7 @@ router.post("/", verifyToken, async (req, res) => {
     
       else {
         cart.save((err, cart) => {
-          if(err) return res.status(400).json({err: 'hjalkdjlksadksd'});
+          if(err) return res.status(400).json({err: err});
           if(cart) {
             return res.status(201).json({Cart: cart})
           }
@@ -106,7 +102,6 @@ router.post("/", verifyToken, async (req, res) => {
       );
 
       res.status(201).json(removeItem);
-      console.log(removeItem)
     } catch (err) {
       res.status(500).json(err);
     }
@@ -129,7 +124,6 @@ router.post("/", verifyToken, async (req, res) => {
       ); 
 
       res.status(201).json(clearCart);
-      console.log(clearCart)
     } catch (err) {
       res.status(500).json(err);
     }

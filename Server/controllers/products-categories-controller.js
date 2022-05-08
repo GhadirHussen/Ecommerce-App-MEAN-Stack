@@ -25,7 +25,7 @@ const getProducts = async (request,response) => {
 router.get("/products", getProducts);
 
 
-router.get("/products/:id" ,async(request,response)=> {
+router.get("/products/product/:id" ,async(request,response)=> {
     try{
         const id =  request.params.id;
         const product = await bl.getProductById(id);
@@ -35,7 +35,8 @@ router.get("/products/:id" ,async(request,response)=> {
     }  
 });
 
-router.get("/products/search",getProducts);
+router.get("/products/search/", getProducts);
+
 
 router.get("/products/search/:name", async (request, response) => {
     try{
@@ -43,7 +44,7 @@ router.get("/products/search/:name", async (request, response) => {
         const regex = new RegExp(productName, 'i');
         const product = await bl.Search(regex);
         if(!product.length){
-            response.send("no product with this letter");;
+            response.send("There is no product in these letter");
         }
         response.status(200).json(product);
     }catch {
@@ -51,7 +52,7 @@ router.get("/products/search/:name", async (request, response) => {
         
     }  
 });
-
+ 
 
 router.post("/products", verifyToken, async (request, response) => {
     try{

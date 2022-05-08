@@ -14,11 +14,13 @@
             <div id='box'>
             <button id="cart" *ngIf="!AuthService.checkAdmin()" (click)='opentCart()' class="btn btn-dark btn-lg" type="submit">
               <i class="fa fa-shopping-cart" style="width:100%"></i>
-              <div class="totalItem"></div>
+              <div class="totalItem">{{totalItem}}</div>
             </button>
-              <div>
-            </div>
-            <button (click)='AuthService.logout()'  mat-raised-button color="primary">Logout</button>
+               <div class="input_search">
+                  <input class="form-control mr-sm-2" (keyup)="searchProduct($event)" type="search" placeholder="Search Products" aria-label="Search">
+               </div> 
+
+                <button (click)='AuthService.logout()'  mat-raised-button color="primary">Logout</button>
           </div> 
         </div>
       </div> 

@@ -1,12 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import CartModel from '../models/cart.Model';
-import { getCart, addProductToCart, removeProductFromCart, clearCart } from '../redux/Cart';
+import { getCart, addProductToCart, removeProductFromCart, clearCart, updateProductFromCart } from '../redux/Cart';
 import store from '../redux/store';
 import { AlertService } from './alert.service';
 import { AuthService } from './auth.service';
 import { environment } from '../../environments/environment';
 import { globals } from 'src/environments/globals';
+import { BehaviorSubject } from 'rxjs';
 
 
 @Injectable({
@@ -15,7 +16,11 @@ import { globals } from 'src/environments/globals';
 export class CartService {
   
 
+  public countItems = new BehaviorSubject<any>([]);
+  public resetCountItems = new BehaviorSubject<any>(null);
+  public newCountItems = new BehaviorSubject<any>(null);
 
+  
   constructor(private http: HttpClient, private alertService: AlertService, private authService: AuthService) { }
   
 
@@ -31,12 +36,21 @@ export class CartService {
   
 
   async getCart(){
-    // const userId = JSON.parse(localStorage.getItem('user')).id;
-    const userId = (await this.authService.getLoginUser()).user._id;
+    const userId = (await this.authService.getLoginUser()).user.id;
     const cart = await this.http.get<CartModel>(`${environment.hostUrl}/${globals.cartUrl}/${userId}`).toPromise();
     store.dispatch(getCart(cart)) 
     return store.getState().carts.carts;    
   }
+
+
+    ///Update one product from the cart
+    async updateItem(idOfCart:string, idOfProduct: string, data: object) {
+ 
+      await this.http.put(`${environment.hostUrl}/${globals.cartUrl}/${idOfCart}/${idOfProduct}`, data).toPromise()
+      store.dispatch(updateProductFromCart(idOfCart, idOfProduct));
+      this.alertService.NotyfCenter.success('Your product has been successfully updated');
+      return;
+    }
 
 
   async deleteProductFromCart(idOfCart:string, idOfItem: string) {

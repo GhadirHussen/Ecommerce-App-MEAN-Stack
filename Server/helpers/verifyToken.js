@@ -1,3 +1,4 @@
+
 module.exports = function(req, res, next) {
    
     const bearerHeader = req.headers['authorization'];
@@ -7,12 +8,8 @@ module.exports = function(req, res, next) {
         req.token = bearerToken;
         next();
     } else {
-        res.send('your are not login')
+        res.send('you are not login')
     }
 
 }
-
-
-
-
 

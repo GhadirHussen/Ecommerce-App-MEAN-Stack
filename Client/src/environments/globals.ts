@@ -10,4 +10,6 @@ export const globals = {
     loginUrl: 'api/user/login',
     getCurrentUser: 'api/user/user',
     userUrl: 'api/user',
+    resetMail: 'api/user/send-email-reset',
+    resetPassword: 'api/user/reset-password',
 }

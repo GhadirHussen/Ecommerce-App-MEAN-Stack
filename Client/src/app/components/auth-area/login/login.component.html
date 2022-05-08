@@ -15,8 +15,17 @@
           <span *ngIf="passwordControl.errors?.min">password cannot incloud a negative number</span>
       </div>
       <div class="btnBox">
-        <button mat-raised-button color="accent" [disabled]="formControl.invalid">Login</button> 
-        <button routerLink="/register" mat-raised-button color="primary">Register</button>  
+        <button mat-raised-button color="accent"  [disabled]="formControl.invalid">Login</button>
+        <div class="resetPassword">
+          <a routerLink="/register">Create Account</a> |
+          <a routerLink="/reset-component">Forget Your Password ?</a>
+        </div>
+      </div>
+
+        <div class="alert alert-info" *ngIf="servierError">
+          <strong>{{servierError}}</strong>
       </div>
     </form>
+
   </div>
+ 

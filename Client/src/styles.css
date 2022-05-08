@@ -1,16 +1,10 @@
-/* 
- html, body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    text-align: center;
+*{
+   box-sizing: border-box;
+
 }
 
-html, body { height: 100%; }
- */
-
  html {
-    background-color: rgb(209, 207, 207);
+    background-color: #d1cfcf;
     padding: 30px;
 
  }

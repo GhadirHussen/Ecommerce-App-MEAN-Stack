@@ -8,6 +8,10 @@ import { AlertService } from 'src/app/services/alert.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { CitiesService } from 'src/app/services/cities.service';
 import { ErrorsService } from 'src/app/services/errors.service';
+import store from '../../../redux/store';
+import { userRegister } from '../../../redux/Auth';
+import Swal from 'sweetalert2';
+
  
 
 @Component({
@@ -29,6 +33,7 @@ export class RegisterComponent implements OnInit {
   public emailControl: FormControl;
   public cityControl: FormControl;
   public streetControl: FormControl;
+  public servierError: string = '';
 
 
   constructor(private http: HttpClient, private authService: AuthService, private router: Router, public cities: CitiesService, private ErrorService: ErrorsService , private alertService: AlertService)
@@ -75,24 +80,28 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-  
-  public async register() {
-    try {
 
-      this.user.firstName = this.firstNameControl.value;
-      this.user.lastName = this.firstNameControl.value;
-      this.user.userName = this.userNameControl.value;
-      this.user.password = this.passwordControl.value;
-      this.user.email = this.emailControl.value;
-      this.user.city = this.cityControl.value;
-      this.user.street = this.streetControl.value;
-      this.authService.register(this.user);
-    }
-    catch(err) {
-      this.ErrorService.handelErrors = err;
-      console.log(this.ErrorService.handelErrors.status)
-        this.alertService.NotyfCenter.error(this.ErrorService.handelErrors.error);
-    }
+  public async register() {
+
+    this.user.firstName = this.firstNameControl.value;
+    this.user.lastName = this.firstNameControl.value;
+    this.user.userName = this.userNameControl.value;
+    this.user.password = this.passwordControl.value;
+    this.user.email = this.emailControl.value;
+    this.user.city = this.cityControl.value;
+    this.user.street = this.streetControl.value;
+    (await this.authService.register(this.user)).subscribe(res => {
+        store.dispatch(userRegister(res));
+
+      Swal.fire({
+          title: `Your registration has been successfully completed`,
+          text: 'YOU ARE WELLCOM',
+          timer: 3000,
+          icon:'success',
+          showConfirmButton: false
+      }); 
+      this.router.navigate(['/login']);
+    }, err => this.servierError = err.error.message);
   } 
 }
 

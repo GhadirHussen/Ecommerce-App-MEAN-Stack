@@ -36,3 +36,25 @@
   text-align: center;
   color: red
 }
+
+.list .footer {
+  border: 0;
+  border-radius: 0px 0px 20px 20px;
+  max-width: 100%;
+  background: #fff;
+  box-shadow: 0 0 20px rgb(0 0 0 / 20%);
+}
+
+
+.list .footer .details {
+  display: flex;
+  justify-content: space-around;
+
+}
+
+.list .footer .details p {
+  margin: 10px 0;
+  background: #fff;
+  font-weight: bold;
+
+}

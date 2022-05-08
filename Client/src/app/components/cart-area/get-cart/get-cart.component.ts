@@ -1,18 +1,11 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { ChildActivationStart } from '@angular/router';
 import CartModel from 'src/app/models/cart.Model';
 import OrderModel from 'src/app/models/order.Model';
 import ProductModel from 'src/app/models/product.Model';
-import { updateProductFromCart } from 'src/app/redux/Cart';
-import store from 'src/app/redux/store';
 import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
-import { AlertService } from 'src/app/services/alert.service';
-import { OrderService } from 'src/app/services/order.service';
-import { environment } from '../../../../environments/environment';
-import { globals } from '../../../../../src/environments/globals';
 
 
 @Component({
@@ -28,16 +21,15 @@ export class GetCartComponent implements OnInit {
   public order: OrderModel;
   public product: ProductModel;
 
-  public userId: any;
 
-  constructor(private http: HttpClient, private matDialog: MatDialog, private CartService: CartService,
-    private authService: AuthService ,private Router: Router, private alertService: AlertService, private orderService: OrderService) 
-    {}
-
+  constructor(private matDialog: MatDialog, private CartService: CartService) {}
+    
 
   async ngOnInit() {
     this.cart = await this.CartService.getCart();
+
   }
+
 
   ///Update one product from the cart
   async update(idOfCart:string, idOfProduct: string) {
@@ -51,17 +43,13 @@ export class GetCartComponent implements OnInit {
       ]
     };
     
-    await this.http.put(`${environment.hostUrl}/${globals.cartUrl}/${idOfCart}/${idOfProduct}`, data).toPromise()
-    store.dispatch(updateProductFromCart(idOfCart, idOfProduct));
-    this.alertService.NotyfCenter.success('Your product has been successfully updated');
+    await this.CartService.updateItem(idOfCart, idOfProduct, data);
     this.ngOnInit();
   }
 
   
   amount(event: any) {
-
-    this.quantity = event.target.value
-    console.log(event.target.value);
+    this.quantity = event.target.value;
   }
 
   closeCart () {
@@ -71,13 +59,20 @@ export class GetCartComponent implements OnInit {
   
   ///Remove one product form the cart
   async removeItem(idOfCart:string, idOfItem: string) {
-    await this.CartService.deleteProductFromCart(idOfCart,idOfItem)
+    await this.CartService.deleteProductFromCart(idOfCart,idOfItem);
+
+    this.CartService.countItems.next(this.cart.cartItems.length);
+
+    if(this.cart.cartItems.length === 0) return localStorage.removeItem("MyCart");
+
     this.ngOnInit();
   }
 
   ///Delete all the products from the cart
   async clearCart(idOfCart:string) {
     await this.CartService.clearCart(idOfCart);
+    this.CartService.countItems.next(this.cart.cartItems.length);
+    localStorage.removeItem("MyCart");
     this.ngOnInit();
   }
 

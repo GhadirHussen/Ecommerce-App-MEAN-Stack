@@ -1,0 +1,53 @@
+.passwordBox {
+    position: relative;
+    padding-top: 10px;
+}
+
+.passwordBox form {
+    padding: 50px;
+    width: 50%;
+    margin: 80px auto 0 auto;
+    display: grid;
+    grid-template-columns: 40% 40%;
+    gap: 40px 10px;
+    justify-content: center;
+    border-radius: 25px;
+    background: #fff;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+}
+
+.passwordBox form div {
+    grid-column:  1/2 span;
+
+}
+
+.passwordBox form input{
+    text-align: center;
+}
+
+.passwordBox form button:first-of-type {
+    grid-column: 1/1 span;
+}
+
+
+.passwordBox button:hover {
+    color: red;
+}
+.passwordBox div:last-child {
+    position: absolute;
+    text-align: center;
+    top: 0;
+    width: 100%;
+}
+
+.passwordBox form div span {
+    position: absolute;
+    color: red;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.pageNotFound {
+    margin: 80px auto;
+    text-align: center;
+}
